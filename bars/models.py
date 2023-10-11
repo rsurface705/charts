@@ -20,4 +20,18 @@ class ChartDetail(models.Model):
     chart_id = models.ForeignKey("bar.Chart", on_delete=models.CASCADE)
     parm_name = models.CharField("Name of parameter", name="parm_name", max_length=50)
     parm_value = models.CharField("Value of the parameter", name="parm_value", max_length=2000)
-   
+
+class Data(models.Model):
+    group1 = models.CharField("First Grouping", name="group1",max_length=100)
+    group2 = models.CharField("Second Grouping", name="group2", max_length=100)
+    element1 = models.IntegerField("First Element", name="element1")
+    element2 = models.IntegerField("Second Element", name="element2")
+    element3 = models.IntegerField("Third Element", name="element3")
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["group1","group2"], name="grps_idx"),
+            models.Index(fields=["group1"], name="grp_1_idx")
+        ]
+        unique_together = [["group1", "group2"]]
+
